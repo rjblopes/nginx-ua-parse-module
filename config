@@ -1,4 +1,16 @@
 ngx_addon_name=ngx_http_ua_parse_module
-CORE_LIBS="$CORE_LIBS -lm"
-HTTP_MODULES="$HTTP_MODULES ngx_http_ua_parse_module"
-NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/ngx_http_ua_parse_module.c $ngx_addon_dir/cJSON/cJSON.c"
+
+if test -n "$ngx_module_link"; then
+  if [ $HTTP != NO ]; then
+    ngx_module_type=HTTP
+    ngx_module_name="ngx_http_ua_parse_module"
+    ngx_module_incs=$ngx_addon_dir
+    ngx_module_deps="$ngx_addon_dir/cJSON/cJSON.h"
+    ngx_module_srcs="$ngx_addon_dir/ngx_http_ua_parse_module.c $ngx_addon_dir/cJSON/cJSON.c"
+    . auto/module
+  fi
+else
+  HTTP_MODULES="$HTTP_MODULES ngx_http_ua_parse_module"
+  NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/ngx_http_ua_parse_module.c $ngx_addon_dir/cJSON/cJSON.c"
+  CORE_LIBS="$CORE_LIBS -lm"
+fi

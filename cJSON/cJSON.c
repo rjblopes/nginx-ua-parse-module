@@ -23,6 +23,9 @@
 /* cJSON */
 /* JSON parser in C. */
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmisleading-indentation"
+
 #include <string.h>
 #include <stdio.h>
 #include <math.h>
@@ -594,3 +597,5 @@ void cJSON_Minify(char *json)
 	}
 	*into=0;	// and null-terminate.
 }
+
+#pragma GCC diagnostic pop
