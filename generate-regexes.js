@@ -2,27 +2,27 @@ var yaml = require('js-yaml'),
     request = require('request'),
     fs = require('fs');
 
-var OUTPUT = "nginx-regexes.json",
+var OUTPUT = 'nginx-regexes.json',
     READ_KEY = {
-        "user_agent_parsers": "user_agent_parsers",
-        "os_parsers": "os_parsers",
-        "device_parsers": "device_parsers",
-        "device_brand_parsers": "device_parsers",
-        "device_model_parsers": "device_parsers"
+        'user_agent_parsers': 'user_agent_parsers',
+        'os_parsers': 'os_parsers',
+        'device_parsers': 'device_parsers',
+        'device_brand_parsers': 'device_parsers',
+        'device_model_parsers': 'device_parsers'
     }
     TRANS_IDX = {
-        "user_agent_parsers": "browsers",
-        "os_parsers": "os",
-        "device_parsers": "devices",
-        "device_brand_parsers": "brands",
-        "device_model_parsers": "models"
+        'user_agent_parsers': 'browsers',
+        'os_parsers': 'os',
+        'device_parsers': 'devices',
+        'device_brand_parsers': 'brands',
+        'device_model_parsers': 'models'
     },
     REPLACEMENT_KEY = {
-        "user_agent_parsers": "family_replacement",
-        "os_parsers": "os_replacement",
-        "device_parsers": "device_replacement",
-        "device_brand_parsers": "brand_replacement",
-        "device_model_parsers": "model_replacement"
+        'user_agent_parsers': 'family_replacement',
+        'os_parsers': 'os_replacement',
+        'device_parsers': 'device_replacement',
+        'device_brand_parsers': 'brand_replacement',
+        'device_model_parsers': 'model_replacement'
     };
 
 function formatFilename() {
@@ -68,10 +68,10 @@ request('https://raw.githubusercontent.com/ua-parser/uap-core/master/regexes.yam
             };
             if (elem[replacementKey]) {
                 replacement = '';
-                replacement = elem[replacementKey].replace("$1", "%s");
-                replacement = replacement.replace("$2", "");
-                replacement = replacement.replace("$3", "");
-                replacement = replacement.replace("$4", "");
+                replacement = elem[replacementKey].replace('$1', '%s');
+                replacement = replacement.replace('$2', '');
+                replacement = replacement.replace('$3', '');
+                replacement = replacement.replace('$4', '');
                 replacement = replacement.trim();
                 if (replacement != '') {
                     tempObj.replacement = replacement;
@@ -91,10 +91,10 @@ request('https://raw.githubusercontent.com/ua-parser/uap-core/master/regexes.yam
                 if (elem['os_v4_replacement']) {
                     os_version_replacement += elem['os_v4_replacement'];
                 }
-                os_version_replacement = os_version_replacement.replace("$1", "%s").trim();
-                os_version_replacement = os_version_replacement.replace("$2", "").trim();
-                os_version_replacement = os_version_replacement.replace("$3", "").trim();
-                os_version_replacement = os_version_replacement.replace("$4", "").trim();
+                os_version_replacement = os_version_replacement.replace('$1', '%s').trim();
+                os_version_replacement = os_version_replacement.replace('$2', '').trim();
+                os_version_replacement = os_version_replacement.replace('$3', '').trim();
+                os_version_replacement = os_version_replacement.replace('$4', '').trim();
                 if (os_version_replacement != '') {
                     tempObj.version_replacement = os_version_replacement;
                 }
@@ -106,5 +106,5 @@ request('https://raw.githubusercontent.com/ua-parser/uap-core/master/regexes.yam
     // Writing it out
     var outputFile = formatFilename();
     fs.writeFileSync(outputFile, JSON.stringify(out));
-    console.log("Don't forget to copy", outputFile, "and use it with uaparse_list directive");
+    console.log('Don\'t forget to copy', outputFile, 'and use it with uaparse_list directive');
 });
